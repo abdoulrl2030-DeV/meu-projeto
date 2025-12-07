@@ -1,0 +1,25 @@
+version: '3.8'
+services:
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: meu-projeto-backend
+    restart: unless-stopped
+    ports:
+      - "5000:5000"
+    volumes:
+      - ./backend/MeuProjeto.Api/meuprojeto.db:/app/meuprojeto.db
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: meu-projeto-frontend
+    restart: unless-stopped
+    ports:
+      - "3000:80"
+
+# Notes:
+# - Backend serves HTTPS and HTTP; in dev container we expose port 5000.
+# - Frontend is served on port 3000 (mapped to nginx:80).
